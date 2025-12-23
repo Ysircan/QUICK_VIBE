@@ -414,73 +414,57 @@
   flex-wrap:wrap;
 }
 
-/* reduced motion */
+/* ===== Reduced motion ===== */
 @media (prefers-reduced-motion: reduce){
   .laneInner{ animation: none !important; }
-  .flipInner{ transition: none; }
+  .flipInner{ transition: none !important; }
 }
 
-/* responsive */
+/* ===== Responsive ===== */
 @media (max-width: 1100px){
   .heroGrid{ grid-template-columns: 240px 1fr 240px; }
   .h1{ font-size: 42px; }
 }
 
+/* ===== Tablet & below: hero must grow with content ===== */
 @media (max-width: 900px){
-  .heroGrid{ grid-template-columns: 1fr; gap: 14px; }
-  .rail{ height: 220px; }
-  .centerShell{ max-width: 720px; }
-  .h1{ font-size: 38px; }
-  .flipBtn{ margin-left: 0; }
-}
-
-@media (max-width: 520px){
-  .centerShell{ padding: 16px; }
-  .h1{ font-size: 34px; }
-  .backGrid{ grid-template-columns: 1fr; }
-}
-/* ===== Mobile: keep center as the hero ===== */
-@media (max-width: 900px){
+  /* 关键：解除固定高度 + 解除 absolute，让内容撑开 hero */
+  .hero{
+    height: auto !important;
+  }
   .heroGrid{
+    position: relative !important;
+    inset: auto !important;
     grid-template-columns: 1fr;
     gap: 14px;
-    min-height: auto;
+    padding: 14px;
+    min-height: 0;
   }
 
-  /* rails become shorter and calmer */
-  .rail{
-    height: 190px;
-  }
+  /* rails 变成氛围条 */
+  .rail{ height: 190px; }
 
-  /* slow down more on mobile (less dizzy) */
-  .up{ animation-duration: 92s; }
-  .down{ animation-duration: 98s; }
+  .centerShell{ max-width: 720px; }
 
-  .centerShell{
-    max-width: 720px;
-  }
+  .h1{ font-size: 36px; line-height: 1.05; }
 
-  .h1{
-    font-size: 36px;
-    line-height: 1.05;
-  }
+  .ctaRow{ gap: 10px; }
+  .btn{ height: 44px; padding: 0 14px; }
 
-  .ctaRow{
-    gap: 10px;
-  }
-
-  .btn{
-    height: 44px;
-    padding: 0 14px;
-  }
-
-  /* keep flip on the right side in narrow layouts */
+  /* 确保 flip 按钮在最上层可点 */
+  .pillRow{ position: relative; z-index: 3; }
   .flipBtn{
     margin-left: auto;
+    position: relative;
+    z-index: 4;
   }
+
+  /* 动画更慢一点 */
+  .up{ animation-duration: 92s; }
+  .down{ animation-duration: 98s; }
 }
 
-/* ===== Phone: center-only (rails off) ===== */
+/* ===== Phone: center-only + disable 3D flip (height auto) ===== */
 @media (max-width: 720px){
   .hero{
     --stroke: 3px;
@@ -489,113 +473,62 @@
     padding: 12px;
   }
 
-  .rail{
-    display: none;
-  }
+  .rail{ display: none; }
 
   .centerShell{
     padding: 14px;
     border-radius: 18px;
   }
 
-  .h1{
-    font-size: 30px;
-    line-height: 1.05;
-  }
-
-  .sub{
-    font-size: 14px;
-  }
+  .h1{ font-size: 30px; line-height: 1.05; }
+  .sub{ font-size: 14px; }
 
   .ctaRow{
     flex-direction: column;
     align-items: stretch;
     gap: 10px;
   }
-
   .btn{
     width: 100%;
     justify-content: center;
-    height: 44px;
   }
 
-  .pillRow{
-    flex-wrap: wrap;
-    gap: 10px;
-  }
+  .pillRow{ flex-wrap: wrap; gap: 10px; }
+  .backGrid{ grid-template-columns: 1fr; }
 
-  .backGrid{
-    grid-template-columns: 1fr;
-  }
-}
+  /* 关键：禁用 3D flip，改为 display 切换，让容器高度跟内容走 */
+  .flipWrap{ perspective: none !important; }
 
-@media (max-width: 520px){
-  .hero{
-    padding: 12px;
-  }
-
-  .centerShell{
-    padding: 12px;
-  }
-
-  .h1{
-    font-size: 28px;
-  }
-
-  .sub{
-    font-size: 14px;
-  }
-
-  .miniTitle{ font-size: 13px; }
-  .miniSub{ font-size: 11px; }
-}
-/* ===== Fix: phone flip should expand height ===== */
-@media (max-width: 720px){
-  /* stop any fixed heights on the hero/center/flip wrappers */
-  .hero,
-  .centerShell{
-    height: auto !important;
-    min-height: 0 !important;
-  }
-
-  /* if you have a flip wrapper, force it to auto height */
-  .flip,
-  .flipInner{
-    height: auto !important;
-    min-height: 0 !important;
-  }
-
-  /* disable 3D flip on phone (prevents absolute stacking height bug) */
   .flipInner{
     transform: none !important;
     transform-style: flat !important;
-    perspective: none !important;
     transition: none !important;
+    min-height: 0 !important;
   }
 
-  /* Make faces participate in normal flow instead of absolute overlay */
-  .flipFront,
-  .flipBack{
+  .face{
     position: static !important;
     inset: auto !important;
     transform: none !important;
     backface-visibility: visible !important;
   }
 
-  /* Default: show front, hide back */
-  .flipBack{ display: none; }
+  /* 默认显示 front */
+  .front{ display: block; }
+  .back{ display: none; }
 
-  /* When flipped: hide front, show back
-     你项目里一般会给外层加一个 like .flipped / .isFlipped 类
-     这里我写两个常见的，你保留你用到的那个即可
-  */
-  .flipped .flipFront,
-  .isFlipped .flipFront{
-    display: none;
-  }
+  /* flip 后显示 back（你的 isFlipped 是加在 flipInner 上的） */
+  .isFlipped .front{ display: none; }
+  .isFlipped .back{ display: block; }
+}
 
-  .flipped .flipBack,
-  .isFlipped .flipBack{
-    display: block;
-  }
+@media (max-width: 520px){
+  .hero{ padding: 12px; }
+  .centerShell{ padding: 12px; }
+
+  .h1{ font-size: 28px; }
+  .sub{ font-size: 14px; }
+
+  .miniTitle{ font-size: 13px; }
+  .miniSub{ font-size: 11px; }
 }
