@@ -234,6 +234,11 @@
   box-shadow: 0 2px 0 var(--ink);
   cursor: pointer;
   color: #111;
+
+  flex: 0 0 auto;        /* ✅ 不被挤窄 */
+  white-space: nowrap;   /* ✅ 不换行 */
+  min-width: 64px;       /* ✅ “中文”有宽度 */
+  justify-content:center;/* ✅ 更稳 */
 }
 
 .globeIcon{
@@ -244,4 +249,6 @@
 .globeText{
   font-size: 12px;
   letter-spacing: .2px;
+  white-space: nowrap;   /* ✅ 文字也不换行 */
+  display: inline-block;
 }
