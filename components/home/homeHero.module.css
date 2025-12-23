@@ -447,7 +447,7 @@
     min-height: auto;
   }
 
-  /* rails become short “ambient bands” */
+  /* rails become shorter and calmer */
   .rail{
     height: 190px;
   }
@@ -474,34 +474,76 @@
     padding: 0 14px;
   }
 
+  /* keep flip on the right side in narrow layouts */
   .flipBtn{
-    margin-left: 0; /* avoid pushing to the far right on narrow screens */
+    margin-left: auto;
   }
 }
 
-@media (max-width: 520px){
+/* ===== Phone: center-only (rails off) ===== */
+@media (max-width: 720px){
   .hero{
-    padding: 14px;
+    --stroke: 3px;
+    --shadow-hard: 6px 6px 0 var(--ink);
+    border-radius: 18px;
+    padding: 12px;
+  }
+
+  .rail{
+    display: none;
   }
 
   .centerShell{
     padding: 14px;
+    border-radius: 18px;
   }
 
   .h1{
     font-size: 30px;
+    line-height: 1.05;
   }
 
   .sub{
     font-size: 14px;
   }
 
+  .ctaRow{
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .btn{
+    width: 100%;
+    justify-content: center;
+    height: 44px;
+  }
+
+  .pillRow{
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
   .backGrid{
     grid-template-columns: 1fr;
   }
+}
 
-  .rail{
-    height: 170px; /* keep it light */
+@media (max-width: 520px){
+  .hero{
+    padding: 12px;
+  }
+
+  .centerShell{
+    padding: 12px;
+  }
+
+  .h1{
+    font-size: 28px;
+  }
+
+  .sub{
+    font-size: 14px;
   }
 
   .miniTitle{ font-size: 13px; }
