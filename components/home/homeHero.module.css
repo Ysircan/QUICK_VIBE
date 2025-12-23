@@ -1,0 +1,71 @@
+.hero{
+  margin-top: 8px;
+  padding: 28px 22px;
+  border-radius: 22px;
+  border: 2px solid var(--ink);
+  background: rgba(255,255,255,.72);
+  box-shadow: 0 14px 38px rgba(0,0,0,.10);
+  backdrop-filter: blur(10px);
+}
+
+.kicker{
+  font-weight: 950;
+  letter-spacing: .10em;
+  text-transform: uppercase;
+  font-size: 12px;
+  opacity: .62;
+}
+
+.h1{
+  margin: 12px 0 10px;
+  font-size: 54px;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  font-weight: 1000;
+}
+
+.dot{
+  display:inline-block;
+  margin: 0 6px;
+  transform: translateY(-6px);
+}
+
+.sub{
+  margin: 0 0 18px;
+  max-width: 62ch;
+  font-size: 16px;
+  line-height: 1.55;
+  opacity: .76;
+}
+
+.ctaRow{
+  display:flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 999px;
+  border: 2px solid var(--ink);
+  background: rgba(255,255,255,.86);
+  color: var(--ink);
+  font-weight: 1000;
+  text-decoration:none;
+  box-shadow: 0 2px 0 var(--ink);
+}
+
+.btnPrimary{
+  background: var(--hi);
+}
+
+@media (max-width: 640px){
+  .hero{ padding: 22px 16px; }
+  .h1{ font-size: 38px; }
+  .sub{ font-size: 15px; }
+  .btn{ height: 42px; width: 100%; }
+}

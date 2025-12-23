@@ -1,0 +1,219 @@
+.navBar{
+  position: fixed;
+  top: 12px;
+  left: 0;
+  right: 0;
+  z-index: 50;
+}
+
+.stage{
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.row{
+  height: 62px;
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+/* LEFT brand (no wrapper) */
+.brand{
+  display:flex;
+  align-items:center;
+  gap: 12px;
+  text-decoration:none;
+  color: var(--ink);
+  min-width: 220px;
+}
+.brandIcon{
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: 2px solid var(--ink);
+  object-fit: cover;
+  background:#fff;
+  box-shadow:none;
+  display:block;
+}
+.brandMeta{ display:flex; flex-direction:column; line-height:1.05; }
+.brandTitle{ font-weight:1000; letter-spacing:.6px; font-size:16px; }
+.brandTagline{
+  margin-top: 3px;
+  font-weight: 900;
+  font-size: 12px;
+  letter-spacing: .10em;
+  text-transform: uppercase;
+  opacity: .65;
+}
+
+/* RIGHT */
+.right{
+  display:flex;
+  align-items:center;
+  gap: 12px;
+}
+
+.desktopLinks{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.navBtn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  height: 34px;
+  padding: 4px 12px 3px;
+  border-radius: 999px;
+  border: 2px solid var(--ink);
+  background: rgba(255,255,255,.84);
+  color: var(--ink);
+  font-weight: 950;
+  font-size: 12px;
+  letter-spacing: .2px;
+  text-decoration:none;
+
+  /* 低阴影（贴地） */
+  box-shadow: 0 2px 0 var(--ink);
+  transition: transform .12s ease, box-shadow .12s ease, background-color .12s ease;
+  white-space: nowrap;
+  user-select:none;
+}
+.navBtn:hover{
+  transform: translateY(1px);
+  box-shadow: 0 1px 0 var(--ink);
+}
+.navBtnActive{ background: var(--hi); }
+
+/* Lang toggle */
+.langToggle{
+  display:inline-flex;
+  align-items:center;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  overflow:hidden;
+  background: rgba(255,255,255,.80);
+  box-shadow: 0 2px 0 var(--ink);
+}
+.langSeg{
+  height: 34px;
+  padding: 0 12px;
+  border: 0;
+  background: transparent;
+  font-weight: 950;
+  font-size: 12px;
+  cursor:pointer;
+  user-select:none;
+  color: rgba(17,17,17,.82);
+}
+.langSeg + .langSeg{ border-left: 2px solid rgba(17,17,17,.25); }
+.langSegActive{ background: rgba(255,255,255,.92); color: var(--ink); }
+
+/* Mobile menu btn */
+.menuBtn{
+  display:none;
+  height: 34px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 2px solid var(--ink);
+  background: rgba(255,255,255,.84);
+  font-weight: 1000;
+  box-shadow: 0 2px 0 var(--ink);
+  cursor:pointer;
+}
+
+/* Drawer */
+.drawerOverlay{
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display:flex;
+  justify-content:center;
+  padding: 78px 20px 20px; /* 顶部给 navbar 留空间 */
+}
+
+.overlayClicker{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.10);
+  border: 0;
+}
+
+.drawer{
+  position: relative;
+  width: 100%;
+  border-radius: 22px;
+  border: 2px solid var(--ink);
+  background: rgba(255,255,255,.82);
+  box-shadow: 0 14px 34px rgba(0,0,0,.14);
+  backdrop-filter: blur(10px);
+  padding: 16px;
+  z-index: 81;
+}
+
+.drawerTop{
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.drawerTitle{ font-weight: 1000; letter-spacing: .2px; }
+.drawerClose{
+  height: 34px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 2px solid var(--ink);
+  background: rgba(255,255,255,.84);
+  font-weight: 1000;
+  box-shadow: 0 2px 0 var(--ink);
+  cursor:pointer;
+}
+
+.drawerLinks{
+  display:flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.drawerLink{
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  padding: 12px 12px;
+  border-radius: 16px;
+  border: 2px solid rgba(17,17,17,.18);
+  background: rgba(255,255,255,.72);
+  text-decoration:none;
+  color: var(--ink);
+  font-weight: 950;
+}
+.drawerLinkActive{
+  border-color: rgba(17,17,17,.45);
+  background: var(--hi);
+}
+
+.drawerLang{
+  margin-top: 14px;
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.drawerHint{
+  font-weight: 950;
+  opacity: .72;
+}
+
+/* Responsive rules */
+@media (max-width: 860px){
+  .brandTagline{ display:none; }
+  .desktopLinks{ display:none; }
+  .langToggle{ display:none; }   /* mobile: 放到 drawer 里 */
+  .menuBtn{ display:inline-flex; }
+  .stage{ padding: 0 14px; }     /* mobile stage padding */
+}
