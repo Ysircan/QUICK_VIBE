@@ -1,3 +1,4 @@
+// components/navbar/Navbar.tsx
 "use client";
 
 import React, { useEffect, useMemo, useState } from "react";
@@ -5,6 +6,8 @@ import { usePathname } from "next/navigation";
 import styles from "./navbar.module.css";
 import { NAV_ITEMS } from "./navItems";
 import { useLocale } from "@/components/site/LocaleProvider";
+import { t } from "@/components/site/i18n";
+import LangGlobe from "./LangGlobe";
 
 export type NavKey = "home" | "yellowpages" | "learn" | "contact";
 
@@ -16,20 +19,26 @@ function getActiveKey(pathname: string): NavKey {
   return "home";
 }
 
+function labelKey(k: NavKey) {
+  if (k === "home") return "nav_home" as const;
+  if (k === "yellowpages") return "nav_yellowpages" as const;
+  if (k === "learn") return "nav_learn" as const;
+  return "nav_contact" as const;
+}
+
 export default function Navbar({ stageMax = 1280 }: { stageMax?: number }) {
   const pathname = usePathname() || "/";
   const active = useMemo(() => getActiveKey(pathname), [pathname]);
 
-  const { locale, setLocale } = useLocale(); // ✅ 语言状态
-
+  const { locale } = useLocale();
   const [open, setOpen] = useState(false);
 
-  // 路由切换时自动关抽屉（避免跳页后抽屉还开着）
+  // 路由切换时自动关抽屉
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
 
-  // 抽屉打开时锁定页面滚动（移动端体验必须）
+  // 抽屉打开时锁滚动
   useEffect(() => {
     if (!open) return;
     const prev = document.body.style.overflow;
@@ -48,8 +57,8 @@ export default function Navbar({ stageMax = 1280 }: { stageMax?: number }) {
             <a className={styles.brand} href="/" aria-label="Quick Home">
               <img className={styles.brandIcon} src="/logo.jpg" alt="Quick logo" />
               <span className={styles.brandMeta}>
-                <span className={styles.brandTitle}>Quick</span>
-                <span className={styles.brandTagline}>Deploy-first learning</span>
+                <span className={styles.brandTitle}>{t(locale, "brand")}</span>
+                <span className={styles.brandTagline}>{t(locale, "nav_tagline")}</span>
               </span>
             </a>
 
@@ -62,28 +71,13 @@ export default function Navbar({ stageMax = 1280 }: { stageMax?: number }) {
                     className={`${styles.navBtn} ${active === l.key ? styles.navBtnActive : ""}`}
                     href={l.href}
                   >
-                    {l.label}
+                    {t(locale, labelKey(l.key))}
                   </a>
                 ))}
               </div>
 
-              {/* desktop language */}
-              <div className={styles.langToggle} aria-label="Language">
-                <button
-                  className={`${styles.langSeg} ${locale === "en" ? styles.langSegActive : ""}`}
-                  type="button"
-                  onClick={() => setLocale("en")}
-                >
-                  EN
-                </button>
-                <button
-                  className={`${styles.langSeg} ${locale === "zh" ? styles.langSegActive : ""}`}
-                  type="button"
-                  onClick={() => setLocale("zh")}
-                >
-                  中文
-                </button>
-              </div>
+              {/* language globe (desktop) */}
+              <LangGlobe />
 
               {/* mobile menu button */}
               <button
@@ -105,7 +99,7 @@ export default function Navbar({ stageMax = 1280 }: { stageMax?: number }) {
         <div className={styles.drawerOverlay} role="dialog" aria-modal="true">
           <div className={styles.drawer} style={{ maxWidth: stageMax }}>
             <div className={styles.drawerTop}>
-              <div className={styles.drawerTitle}>Menu</div>
+              <div className={styles.drawerTitle}>{t(locale, "nav_menu")}</div>
               <button className={styles.drawerClose} onClick={() => setOpen(false)} aria-label="Close">
                 ✕
               </button>
@@ -119,30 +113,14 @@ export default function Navbar({ stageMax = 1280 }: { stageMax?: number }) {
                   href={l.href}
                   onClick={() => setOpen(false)}
                 >
-                  {l.label}
+                  {t(locale, labelKey(l.key))}
                 </a>
               ))}
             </div>
 
-            {/* drawer language (mobile) */}
             <div className={styles.drawerLang}>
-              <span className={styles.drawerHint}>Language</span>
-              <div className={styles.langToggle} aria-label="Language">
-                <button
-                  className={`${styles.langSeg} ${locale === "en" ? styles.langSegActive : ""}`}
-                  type="button"
-                  onClick={() => setLocale("en")}
-                >
-                  EN
-                </button>
-                <button
-                  className={`${styles.langSeg} ${locale === "zh" ? styles.langSegActive : ""}`}
-                  type="button"
-                  onClick={() => setLocale("zh")}
-                >
-                  中文
-                </button>
-              </div>
+              <span className={styles.drawerHint}>{t(locale, "nav_language")}</span>
+              <LangGlobe compact />
             </div>
           </div>
 

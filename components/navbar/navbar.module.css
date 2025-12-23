@@ -221,3 +221,27 @@
   .menuBtn{ display:inline-flex; }
   .stage{ padding: 0 14px; }     /* mobile stage padding */
 }
+.globeBtn{
+  display:inline-flex;
+  align-items:center;
+  gap: 8px;
+  height: 34px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 2px solid var(--ink);
+  background: rgba(255,255,255,.92);
+  font-weight: 1000;
+  box-shadow: 0 2px 0 var(--ink);
+  cursor: pointer;
+  color: #111;
+}
+
+.globeIcon{
+  font-size: 14px;
+  transform: translateY(-1px);
+}
+
+.globeText{
+  font-size: 12px;
+  letter-spacing: .2px;
+}
