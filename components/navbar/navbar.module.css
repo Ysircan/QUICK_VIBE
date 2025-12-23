@@ -121,11 +121,15 @@
   padding: 0 12px;
   border-radius: 999px;
   border: 2px solid var(--ink);
-  background: rgba(255,255,255,.84);
+  background: rgba(255,255,255,.92); /* 更亮 */
   font-weight: 1000;
   box-shadow: 0 2px 0 var(--ink);
   cursor:pointer;
+
+  color: #111;              /* ✅ 三根线黑色 */
+  -webkit-text-fill-color:#111;
 }
+
 
 /* Drawer */
 .drawerOverlay{

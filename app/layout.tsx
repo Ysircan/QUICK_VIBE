@@ -30,7 +30,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <BackgroundShell>
-          <Navbar active="home" />
+          <Navbar  />
 
           {/* content stage (keeps navbar + content aligned) */}
           <div

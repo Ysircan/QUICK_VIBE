@@ -1,35 +1,47 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
+import { usePathname } from "next/navigation";
 import styles from "./navbar.module.css";
+import { NAV_ITEMS } from "./navItems";
 
 export type NavKey = "home" | "yellowpages" | "learn" | "contact";
 
-export default function Navbar({
-  active = "home",
-  stageMax = 1280,
-}: {
-  active?: NavKey;
-  stageMax?: number;
-}) {
+function getActiveKey(pathname: string): NavKey {
+  if (pathname === "/") return "home";
+  if (pathname.startsWith("/yellowpages")) return "yellowpages";
+  if (pathname.startsWith("/learn")) return "learn";
+  if (pathname.startsWith("/contact")) return "contact";
+  return "home";
+}
+
+export default function Navbar({ stageMax = 1280 }: { stageMax?: number }) {
+  const pathname = usePathname() || "/";
+  const active = useMemo(() => getActiveKey(pathname), [pathname]);
+
   const [open, setOpen] = useState(false);
 
-  const links = useMemo(
-    () => [
-      { key: "home" as const, label: "Home", href: "/" },
-      { key: "yellowpages" as const, label: "Yellow Pages", href: "/yellowpages" },
-      { key: "learn" as const, label: "Learn", href: "/learn" },
-      { key: "contact" as const, label: "Contact", href: "/contact" },
-    ],
-    []
-  );
+  // 路由切换时自动关抽屉（避免跳页后抽屉还开着）
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+
+  // 抽屉打开时锁定页面滚动（移动端体验必须）
+  useEffect(() => {
+    if (!open) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [open]);
 
   return (
     <>
       <header className={styles.navBar}>
         <div className={styles.stage} style={{ maxWidth: stageMax }}>
           <div className={styles.row}>
-            {/* LEFT: no wrapper pill, just logo + text */}
+            {/* LEFT */}
             <a className={styles.brand} href="/" aria-label="Quick Home">
               <img className={styles.brandIcon} src="/logo.jpg" alt="Quick logo" />
               <span className={styles.brandMeta}>
@@ -38,10 +50,10 @@ export default function Navbar({
               </span>
             </a>
 
-            {/* RIGHT: desktop links */}
+            {/* RIGHT */}
             <nav className={styles.right} aria-label="Primary">
               <div className={styles.desktopLinks}>
-                {links.map((l) => (
+                {NAV_ITEMS.map((l) => (
                   <a
                     key={l.key}
                     className={`${styles.navBtn} ${active === l.key ? styles.navBtnActive : ""}`}
@@ -52,7 +64,6 @@ export default function Navbar({
                 ))}
               </div>
 
-              {/* language (desktop) */}
               <div className={styles.langToggle} aria-label="Language">
                 <button className={`${styles.langSeg} ${styles.langSegActive}`} type="button">
                   EN
@@ -62,7 +73,6 @@ export default function Navbar({
                 </button>
               </div>
 
-              {/* mobile menu button */}
               <button
                 className={styles.menuBtn}
                 type="button"
@@ -89,7 +99,7 @@ export default function Navbar({
             </div>
 
             <div className={styles.drawerLinks}>
-              {links.map((l) => (
+              {NAV_ITEMS.map((l) => (
                 <a
                   key={l.key}
                   className={`${styles.drawerLink} ${active === l.key ? styles.drawerLinkActive : ""}`}
@@ -114,7 +124,6 @@ export default function Navbar({
             </div>
           </div>
 
-          {/* click outside to close */}
           <button className={styles.overlayClicker} aria-label="Close overlay" onClick={() => setOpen(false)} />
         </div>
       )}
