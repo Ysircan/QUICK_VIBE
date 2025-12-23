@@ -217,7 +217,7 @@
 @media (max-width: 860px){
   .brandTagline{ display:none; }
   .desktopLinks{ display:none; }
-  .langToggle{ display:none; }   /* mobile: 放到 drawer 里 */
+   .right .langToggle{ display:none; }   /* mobile: 放到 drawer 里 */
   .menuBtn{ display:inline-flex; }
   .stage{ padding: 0 14px; }     /* mobile stage padding */
 }

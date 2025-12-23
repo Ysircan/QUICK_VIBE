@@ -5,6 +5,8 @@ import "./globals.css";
 
 import BackgroundShell from "@/components/site/BackgroundShell";
 import Navbar from "@/components/navbar/Navbar";
+import { LocaleProvider } from "@/components/site/LocaleProvider";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,7 +31,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <LocaleProvider>
         <BackgroundShell>
+
+         
           <Navbar  />
 
           {/* content stage (keeps navbar + content aligned) */}
@@ -44,6 +49,7 @@ export default function RootLayout({
             <div style={{ maxWidth: 1280, margin: "0 auto" }}>{children}</div>
           </div>
         </BackgroundShell>
+       </LocaleProvider>
       </body>
     </html>
   );

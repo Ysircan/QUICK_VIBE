@@ -4,6 +4,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { usePathname } from "next/navigation";
 import styles from "./navbar.module.css";
 import { NAV_ITEMS } from "./navItems";
+import { useLocale } from "@/components/site/LocaleProvider";
 
 export type NavKey = "home" | "yellowpages" | "learn" | "contact";
 
@@ -18,6 +19,8 @@ function getActiveKey(pathname: string): NavKey {
 export default function Navbar({ stageMax = 1280 }: { stageMax?: number }) {
   const pathname = usePathname() || "/";
   const active = useMemo(() => getActiveKey(pathname), [pathname]);
+
+  const { locale, setLocale } = useLocale(); // ✅ 语言状态
 
   const [open, setOpen] = useState(false);
 
@@ -64,15 +67,25 @@ export default function Navbar({ stageMax = 1280 }: { stageMax?: number }) {
                 ))}
               </div>
 
+              {/* desktop language */}
               <div className={styles.langToggle} aria-label="Language">
-                <button className={`${styles.langSeg} ${styles.langSegActive}`} type="button">
+                <button
+                  className={`${styles.langSeg} ${locale === "en" ? styles.langSegActive : ""}`}
+                  type="button"
+                  onClick={() => setLocale("en")}
+                >
                   EN
                 </button>
-                <button className={styles.langSeg} type="button">
+                <button
+                  className={`${styles.langSeg} ${locale === "zh" ? styles.langSegActive : ""}`}
+                  type="button"
+                  onClick={() => setLocale("zh")}
+                >
                   中文
                 </button>
               </div>
 
+              {/* mobile menu button */}
               <button
                 className={styles.menuBtn}
                 type="button"
@@ -111,13 +124,22 @@ export default function Navbar({ stageMax = 1280 }: { stageMax?: number }) {
               ))}
             </div>
 
+            {/* drawer language (mobile) */}
             <div className={styles.drawerLang}>
               <span className={styles.drawerHint}>Language</span>
               <div className={styles.langToggle} aria-label="Language">
-                <button className={`${styles.langSeg} ${styles.langSegActive}`} type="button">
+                <button
+                  className={`${styles.langSeg} ${locale === "en" ? styles.langSegActive : ""}`}
+                  type="button"
+                  onClick={() => setLocale("en")}
+                >
                   EN
                 </button>
-                <button className={styles.langSeg} type="button">
+                <button
+                  className={`${styles.langSeg} ${locale === "zh" ? styles.langSegActive : ""}`}
+                  type="button"
+                  onClick={() => setLocale("zh")}
+                >
                   中文
                 </button>
               </div>
