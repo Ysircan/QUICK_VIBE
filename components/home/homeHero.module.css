@@ -549,3 +549,53 @@
   .miniTitle{ font-size: 13px; }
   .miniSub{ font-size: 11px; }
 }
+/* ===== Fix: phone flip should expand height ===== */
+@media (max-width: 720px){
+  /* stop any fixed heights on the hero/center/flip wrappers */
+  .hero,
+  .centerShell{
+    height: auto !important;
+    min-height: 0 !important;
+  }
+
+  /* if you have a flip wrapper, force it to auto height */
+  .flip,
+  .flipInner{
+    height: auto !important;
+    min-height: 0 !important;
+  }
+
+  /* disable 3D flip on phone (prevents absolute stacking height bug) */
+  .flipInner{
+    transform: none !important;
+    transform-style: flat !important;
+    perspective: none !important;
+    transition: none !important;
+  }
+
+  /* Make faces participate in normal flow instead of absolute overlay */
+  .flipFront,
+  .flipBack{
+    position: static !important;
+    inset: auto !important;
+    transform: none !important;
+    backface-visibility: visible !important;
+  }
+
+  /* Default: show front, hide back */
+  .flipBack{ display: none; }
+
+  /* When flipped: hide front, show back
+     你项目里一般会给外层加一个 like .flipped / .isFlipped 类
+     这里我写两个常见的，你保留你用到的那个即可
+  */
+  .flipped .flipFront,
+  .isFlipped .flipFront{
+    display: none;
+  }
+
+  .flipped .flipBack,
+  .isFlipped .flipBack{
+    display: block;
+  }
+}
