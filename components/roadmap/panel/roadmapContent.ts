@@ -1,377 +1,389 @@
 // components/roadmap/panel/roadmapContent.ts
+import type { Locale } from "@/components/site/LocaleProvider";
+import { t } from "@/components/site/i18n";
 import type { RoadmapContent } from "./types";
 
-export const ROADMAP_CONTENT: RoadmapContent = {
-  header: {
-    title: "ROADMAP",
-    subtitle:
-      "This is a navigator: pick a skill on the left, see what it does on the right. Deep lessons live in Learn.",
-    primaryAction: {
-      id: "learn",
-      label: "GO LEARN →",
-      href: "/learn",
-    },
-  },
+export function getRoadmapContent(locale: Locale): RoadmapContent {
+  const openLabel = (name: string) =>
+    `${t(locale, "roadmap_action_open")} ${name} ${t(locale, "roadmap_action_arrow")}`.trim();
+  const relatedLabel = t(locale, "roadmap_action_related");
 
-  moduleOrder: ["frontend", "backend", "database", "deploy", "addons"],
+  const htmlName = t(locale, "roadmap_skill_html_name");
+  const cssName = t(locale, "roadmap_skill_css_name");
+  const reactName = t(locale, "roadmap_skill_react_name");
+  const tsName = t(locale, "roadmap_skill_typescript_name");
+  const nextName = t(locale, "roadmap_skill_nextjs_name");
 
-  modules: {
-    frontend: {
-      title: "FRONTEND",
-      description:
-        "Build what users see: structure, styling, components, interaction.",
-      skills: [
-        {
-          key: "html",
-          name: "HTML",
-          badge: "PAGE STRUCTURE",
-          hint: "Structure / content / forms",
-          description: "HTML is page structure. It defines content blocks and forms.",
-          bullets: [
-            "Write structure: headings, sections, images, layout regions.",
-            "Build forms: inputs, buttons, selects, submit.",
-            "Provides stable markup for CSS and React to attach to.",
-          ],
-          actions: [
-            { id: "open", label: "OPEN HTML →", href: "/learn/html" },
-            { id: "related", label: "RELATED CARDS" },
-          ],
-        },
-        {
-          key: "css",
-          name: "CSS",
-          badge: "VISUAL STYLE",
-          hint: "Layout / spacing / typography",
-          description:
-            "CSS controls layout and visual style: spacing, typography, responsiveness.",
-          bullets: [
-            "Layout with Flex/Grid and consistent spacing.",
-            "Style UI parts: buttons, cards, navigation, hover states.",
-            "Make the UI work well on mobile screens.",
-          ],
-          actions: [
-            { id: "open", label: "OPEN CSS →", href: "/learn/css" },
-            { id: "related", label: "RELATED CARDS" },
-          ],
-        },
-        {
-          key: "react",
-          name: "React",
-          badge: "COMPONENTS",
-          hint: "Components / state / interaction",
-          description:
-            "React builds UI as components and adds interaction through state.",
-          bullets: [
-            "Compose reusable parts: Navbar, Card, Panel.",
-            "Handle interaction: tabs, collapses, modals, loading states.",
-            "Render API data safely into the UI.",
-          ],
-          actions: [
-            { id: "open", label: "OPEN REACT →", href: "/learn/react" },
-            { id: "related", label: "RELATED CARDS" },
-          ],
-        },
-        {
-          key: "typescript",
-          name: "TypeScript",
-          badge: "TYPE SAFETY",
-          hint: "Types / data shape / stability",
-          description:
-            "TypeScript adds types so you ship fewer mistakes and refactor safely.",
-          bullets: [
-            "Define props and data shapes to prevent wrong inputs.",
-            "Make API response fields explicit and predictable.",
-            "Keep refactors safer as the project grows.",
-          ],
-          actions: [
-            { id: "open", label: "OPEN TS →", href: "/learn/typescript" },
-            { id: "related", label: "RELATED CARDS" },
-          ],
-        },
-        {
-          key: "nextjs",
-          name: "Next.js",
-          badge: "APP STRUCTURE",
-          hint: "Routing / layouts / integration",
-          description:
-            "Next.js provides app structure: routing, layouts, and integration patterns.",
-          bullets: [
-            "Routing: /home /learn /roadmap.",
-            "Layouts: shared shell with page swapping.",
-            "Easy integration with APIs and deployment.",
-          ],
-          actions: [
-            { id: "open", label: "OPEN NEXT →", href: "/learn/nextjs" },
-            { id: "related", label: "RELATED CARDS" },
-          ],
-        },
-      ],
+  const apiName = t(locale, "roadmap_skill_api_name");
+  const authName = t(locale, "roadmap_skill_auth_name");
+  const validationName = t(locale, "roadmap_skill_validation_name");
+  const uploadName = t(locale, "roadmap_skill_upload_name");
+
+  const schemaName = t(locale, "roadmap_skill_schema_name");
+  const relationsName = t(locale, "roadmap_skill_relations_name");
+  const migrationsName = t(locale, "roadmap_skill_migrations_name");
+
+  const deployName = t(locale, "roadmap_skill_deploy_name");
+  const envName = t(locale, "roadmap_skill_env_name");
+  const domainName = t(locale, "roadmap_skill_domain_name");
+
+  const paymentName = t(locale, "roadmap_skill_payment_name");
+  const emailName = t(locale, "roadmap_skill_email_name");
+  const analyticsName = t(locale, "roadmap_skill_analytics_name");
+  const adminName = t(locale, "roadmap_skill_admin_name");
+
+  return {
+    header: {
+      title: t(locale, "roadmap_header_title"),
+      subtitle: t(locale, "roadmap_header_subtitle"),
+      primaryAction: {
+        id: "learn",
+        label: t(locale, "roadmap_header_primary_action"),
+        href: "/learn",
+      },
     },
 
-    backend: {
-      title: "BACKEND",
-      description:
-        "Build features: APIs, authentication, permissions, and file handling.",
-      skills: [
-        {
-          key: "api",
-          name: "API Design",
-          badge: "ENDPOINTS",
-          hint: "Routes / requests / responses",
-          description:
-            "APIs are endpoints the frontend calls to read and write data.",
-          bullets: [
-            "Provide data: list, detail, search.",
-            "CRUD actions: create, update, delete.",
-            "Define request/response formats that match the UI.",
-          ],
-          actions: [
-            { id: "open", label: "OPEN API →", href: "/learn/api" },
-            { id: "related", label: "RELATED CARDS" },
-          ],
-        },
-        {
-          key: "auth",
-          name: "Auth",
-          badge: "ACCESS CONTROL",
-          hint: "Login / roles / protection",
-          description:
-            "Auth controls who can use the system and what actions are allowed.",
-          bullets: [
-            "Login/register with sessions or tokens.",
-            "Protect endpoints (no login = no access).",
-            "Roles/permissions when needed (user/admin).",
-          ],
-          actions: [
-            { id: "open", label: "OPEN AUTH →", href: "/learn/auth" },
-            { id: "related", label: "RELATED CARDS" },
-          ],
-        },
-        {
-          key: "validation",
-          name: "Validation",
-          badge: "INPUT CHECKS",
-          hint: "Prevent bad data",
-          description:
-            "Validation checks incoming data so the system doesn’t get corrupted.",
-          bullets: [
-            "Verify required fields and formats.",
-            "Return clear errors the UI can show.",
-            "Keep the database consistent.",
-          ],
-          actions: [
-            { id: "open", label: "OPEN VALIDATION →", href: "/learn/validation" },
-            { id: "related", label: "RELATED CARDS" },
-          ],
-        },
-        {
-          key: "upload",
-          name: "File Upload",
-          badge: "FILES",
-          hint: "Images / docs / audio",
-          description:
-            "Uploads receive files and store them safely with limits and references.",
-          bullets: [
-            "Upload covers, documents, audio assets.",
-            "Enforce size/type limits to prevent abuse.",
-            "Save file URLs and write records into the database.",
-          ],
-          actions: [
-            { id: "open", label: "OPEN UPLOAD →", href: "/learn/upload" },
-            { id: "related", label: "RELATED CARDS" },
-          ],
-        },
-      ],
-    },
+    moduleOrder: ["frontend", "backend", "database", "deploy", "addons"],
 
-    database: {
-      title: "DATABASE",
-      description: "Store data: schema, relations, and safe schema changes.",
-      skills: [
-        {
-          key: "schema",
-          name: "Schema",
-          badge: "TABLE DESIGN",
-          hint: "Fields / types / constraints",
-          description: "Schema defines tables: fields, types, and constraints.",
-          bullets: [
-            "Model features into tables (User, Course, Order).",
-            "Decide required vs optional fields.",
-            "Use constraints/defaults to prevent messy data.",
-          ],
-          actions: [
-            { id: "open", label: "OPEN SCHEMA →", href: "/learn/schema" },
-            { id: "related", label: "RELATED CARDS" },
-          ],
-        },
-        {
-          key: "relations",
-          name: "Relations",
-          badge: "LINK DATA",
-          hint: "Ownership / one-to-many",
-          description:
-            "Relations define how tables connect (what belongs to what).",
-          bullets: [
-            "Structure ownership: user → course → lesson.",
-            "Query connected data reliably.",
-            "Avoid duplicating the same data in many places.",
-          ],
-          actions: [
-            { id: "open", label: "OPEN RELATIONS →", href: "/learn/relations" },
-            { id: "related", label: "RELATED CARDS" },
-          ],
-        },
-        {
-          key: "migrations",
-          name: "Migrations",
-          badge: "SAFE CHANGES",
-          hint: "Evolve schema safely",
-          description:
-            "Migrations are controlled schema changes that keep environments aligned.",
-          bullets: [
-            "Add/change fields and create new tables.",
-            "Keep local and production in sync.",
-            "Avoid surprises caused by schema drift.",
-          ],
-          actions: [
-            { id: "open", label: "OPEN MIGRATIONS →", href: "/learn/migrations" },
-            { id: "related", label: "RELATED CARDS" },
-          ],
-        },
-      ],
-    },
+    modules: {
+      frontend: {
+        title: t(locale, "roadmap_module_frontend_title"),
+        description: t(locale, "roadmap_module_frontend_desc"),
+        skills: [
+          {
+            key: "html",
+            name: htmlName,
+            badge: t(locale, "roadmap_skill_html_badge"),
+            hint: t(locale, "roadmap_skill_html_hint"),
+            description: t(locale, "roadmap_skill_html_desc"),
+            bullets: [
+              t(locale, "roadmap_skill_html_bullet1"),
+              t(locale, "roadmap_skill_html_bullet2"),
+              t(locale, "roadmap_skill_html_bullet3"),
+            ],
+            actions: [
+              { id: "open", label: openLabel(htmlName), href: "/learn/html" },
+              { id: "related", label: relatedLabel },
+            ],
+          },
+          {
+            key: "css",
+            name: cssName,
+            badge: t(locale, "roadmap_skill_css_badge"),
+            hint: t(locale, "roadmap_skill_css_hint"),
+            description: t(locale, "roadmap_skill_css_desc"),
+            bullets: [
+              t(locale, "roadmap_skill_css_bullet1"),
+              t(locale, "roadmap_skill_css_bullet2"),
+              t(locale, "roadmap_skill_css_bullet3"),
+            ],
+            actions: [
+              { id: "open", label: openLabel(cssName), href: "/learn/css" },
+              { id: "related", label: relatedLabel },
+            ],
+          },
+          {
+            key: "react",
+            name: reactName,
+            badge: t(locale, "roadmap_skill_react_badge"),
+            hint: t(locale, "roadmap_skill_react_hint"),
+            description: t(locale, "roadmap_skill_react_desc"),
+            bullets: [
+              t(locale, "roadmap_skill_react_bullet1"),
+              t(locale, "roadmap_skill_react_bullet2"),
+              t(locale, "roadmap_skill_react_bullet3"),
+            ],
+            actions: [
+              { id: "open", label: openLabel(reactName), href: "/learn/react" },
+              { id: "related", label: relatedLabel },
+            ],
+          },
+          {
+            key: "typescript",
+            name: tsName,
+            badge: t(locale, "roadmap_skill_typescript_badge"),
+            hint: t(locale, "roadmap_skill_typescript_hint"),
+            description: t(locale, "roadmap_skill_typescript_desc"),
+            bullets: [
+              t(locale, "roadmap_skill_typescript_bullet1"),
+              t(locale, "roadmap_skill_typescript_bullet2"),
+              t(locale, "roadmap_skill_typescript_bullet3"),
+            ],
+            actions: [
+              { id: "open", label: openLabel(tsName), href: "/learn/typescript" },
+              { id: "related", label: relatedLabel },
+            ],
+          },
+          {
+            key: "nextjs",
+            name: nextName,
+            badge: t(locale, "roadmap_skill_nextjs_badge"),
+            hint: t(locale, "roadmap_skill_nextjs_hint"),
+            description: t(locale, "roadmap_skill_nextjs_desc"),
+            bullets: [
+              t(locale, "roadmap_skill_nextjs_bullet1"),
+              t(locale, "roadmap_skill_nextjs_bullet2"),
+              t(locale, "roadmap_skill_nextjs_bullet3"),
+            ],
+            actions: [
+              { id: "open", label: openLabel(nextName), href: "/learn/nextjs" },
+              { id: "related", label: relatedLabel },
+            ],
+          },
+        ],
+      },
 
-    deploy: {
-      title: "DEPLOY",
-      description: "Ship it: deployment, environment variables, domain & DNS.",
-      skills: [
-        {
-          key: "deploy",
-          name: "Deploy",
-          badge: "PUBLISH",
-          hint: "Preview / production",
-          description:
-            "Deployment publishes your site so people can access it online.",
-          bullets: [
-            "Preview builds on each push.",
-            "Production release from main.",
-            "Rollback and quick fixes when things break.",
-          ],
-          actions: [
-            { id: "open", label: "OPEN DEPLOY →", href: "/learn/deploy" },
-            { id: "related", label: "RELATED CARDS" },
-          ],
-        },
-        {
-          key: "env",
-          name: "Env Vars",
-          badge: "CONFIG",
-          hint: "Secrets / URLs",
-          description:
-            "Environment variables store config and secrets outside your code.",
-          bullets: [
-            "Database URLs and API keys.",
-            "Separate dev vs production settings.",
-            "Reduce production-only failures.",
-          ],
-          actions: [
-            { id: "open", label: "OPEN ENV →", href: "/learn/env" },
-            { id: "related", label: "RELATED CARDS" },
-          ],
-        },
-        {
-          key: "domain",
-          name: "Domain & DNS",
-          badge: "CUSTOM URL",
-          hint: "Domain / records",
-          description:
-            "Domain & DNS let people use your brand URL instead of a platform subdomain.",
-          bullets: [
-            "Attach a custom domain to your deployment.",
-            "Configure DNS records (A/CNAME/subdomains).",
-            "Troubleshoot: propagation, caching, wrong records.",
-          ],
-          actions: [
-            { id: "open", label: "OPEN DOMAIN →", href: "/learn/domain" },
-            { id: "related", label: "RELATED CARDS" },
-          ],
-        },
-      ],
-    },
+      backend: {
+        title: t(locale, "roadmap_module_backend_title"),
+        description: t(locale, "roadmap_module_backend_desc"),
+        skills: [
+          {
+            key: "api",
+            name: apiName,
+            badge: t(locale, "roadmap_skill_api_badge"),
+            hint: t(locale, "roadmap_skill_api_hint"),
+            description: t(locale, "roadmap_skill_api_desc"),
+            bullets: [
+              t(locale, "roadmap_skill_api_bullet1"),
+              t(locale, "roadmap_skill_api_bullet2"),
+              t(locale, "roadmap_skill_api_bullet3"),
+            ],
+            actions: [
+              { id: "open", label: openLabel(apiName), href: "/learn/api" },
+              { id: "related", label: relatedLabel },
+            ],
+          },
+          {
+            key: "auth",
+            name: authName,
+            badge: t(locale, "roadmap_skill_auth_badge"),
+            hint: t(locale, "roadmap_skill_auth_hint"),
+            description: t(locale, "roadmap_skill_auth_desc"),
+            bullets: [
+              t(locale, "roadmap_skill_auth_bullet1"),
+              t(locale, "roadmap_skill_auth_bullet2"),
+              t(locale, "roadmap_skill_auth_bullet3"),
+            ],
+            actions: [
+              { id: "open", label: openLabel(authName), href: "/learn/auth" },
+              { id: "related", label: relatedLabel },
+            ],
+          },
+          {
+            key: "validation",
+            name: validationName,
+            badge: t(locale, "roadmap_skill_validation_badge"),
+            hint: t(locale, "roadmap_skill_validation_hint"),
+            description: t(locale, "roadmap_skill_validation_desc"),
+            bullets: [
+              t(locale, "roadmap_skill_validation_bullet1"),
+              t(locale, "roadmap_skill_validation_bullet2"),
+              t(locale, "roadmap_skill_validation_bullet3"),
+            ],
+            actions: [
+              { id: "open", label: openLabel(validationName), href: "/learn/validation" },
+              { id: "related", label: relatedLabel },
+            ],
+          },
+          {
+            key: "upload",
+            name: uploadName,
+            badge: t(locale, "roadmap_skill_upload_badge"),
+            hint: t(locale, "roadmap_skill_upload_hint"),
+            description: t(locale, "roadmap_skill_upload_desc"),
+            bullets: [
+              t(locale, "roadmap_skill_upload_bullet1"),
+              t(locale, "roadmap_skill_upload_bullet2"),
+              t(locale, "roadmap_skill_upload_bullet3"),
+            ],
+            actions: [
+              { id: "open", label: openLabel(uploadName), href: "/learn/upload" },
+              { id: "related", label: relatedLabel },
+            ],
+          },
+        ],
+      },
 
-    addons: {
-      title: "ADD-ONS",
-      description:
-        "Optional capabilities that turn a site into something you can operate and monetize.",
-      skills: [
-        {
-          key: "payment",
-          name: "Payment",
-          badge: "TAKE MONEY",
-          hint: "One-time / subscription",
-          description:
-            "Payments let your site charge users and keep an order record.",
-          bullets: [
-            "One-time payment for courses, services, templates.",
-            "Subscriptions (monthly/yearly).",
-            "Webhooks for success/fail/refund events.",
-          ],
-          actions: [
-            { id: "open", label: "OPEN PAYMENT →", href: "/learn/payment" },
-            { id: "related", label: "RELATED CARDS" },
-          ],
-        },
-        {
-          key: "email",
-          name: "Email",
-          badge: "NOTIFICATIONS",
-          hint: "Verify / reset / receipts",
-          description:
-            "Email is used for verification, password reset, receipts, and notifications.",
-          bullets: [
-            "Sign-up verification and password reset.",
-            "Order receipts and status updates.",
-            "System alerts and basic ops messages.",
-          ],
-          actions: [
-            { id: "open", label: "OPEN EMAIL →", href: "/learn/email" },
-            { id: "related", label: "RELATED CARDS" },
-          ],
-        },
-        {
-          key: "analytics",
-          name: "Analytics",
-          badge: "MEASURE",
-          hint: "Traffic / conversion",
-          description: "Analytics tells you what users do and what converts.",
-          bullets: [
-            "Traffic sources and page clicks.",
-            "Funnels: visit → sign up → purchase.",
-            "Use data to improve copy and pages.",
-          ],
-          actions: [
-            { id: "open", label: "OPEN ANALYTICS →", href: "/learn/analytics" },
-            { id: "related", label: "RELATED CARDS" },
-          ],
-        },
-        {
-          key: "admin",
-          name: "Admin",
-          badge: "MANAGE",
-          hint: "Content / users / orders",
-          description:
-            "Admin tools let you manage content, users, and orders.",
-          bullets: [
-            "Manage content: posts, lessons, resources.",
-            "Manage users: roles, bans, profiles.",
-            "Manage orders: status, refunds, reconciliation.",
-          ],
-          actions: [
-            { id: "open", label: "OPEN ADMIN →", href: "/learn/admin" },
-            { id: "related", label: "RELATED CARDS" },
-          ],
-        },
-      ],
+      database: {
+        title: t(locale, "roadmap_module_database_title"),
+        description: t(locale, "roadmap_module_database_desc"),
+        skills: [
+          {
+            key: "schema",
+            name: schemaName,
+            badge: t(locale, "roadmap_skill_schema_badge"),
+            hint: t(locale, "roadmap_skill_schema_hint"),
+            description: t(locale, "roadmap_skill_schema_desc"),
+            bullets: [
+              t(locale, "roadmap_skill_schema_bullet1"),
+              t(locale, "roadmap_skill_schema_bullet2"),
+              t(locale, "roadmap_skill_schema_bullet3"),
+            ],
+            actions: [
+              { id: "open", label: openLabel(schemaName), href: "/learn/schema" },
+              { id: "related", label: relatedLabel },
+            ],
+          },
+          {
+            key: "relations",
+            name: relationsName,
+            badge: t(locale, "roadmap_skill_relations_badge"),
+            hint: t(locale, "roadmap_skill_relations_hint"),
+            description: t(locale, "roadmap_skill_relations_desc"),
+            bullets: [
+              t(locale, "roadmap_skill_relations_bullet1"),
+              t(locale, "roadmap_skill_relations_bullet2"),
+              t(locale, "roadmap_skill_relations_bullet3"),
+            ],
+            actions: [
+              { id: "open", label: openLabel(relationsName), href: "/learn/relations" },
+              { id: "related", label: relatedLabel },
+            ],
+          },
+          {
+            key: "migrations",
+            name: migrationsName,
+            badge: t(locale, "roadmap_skill_migrations_badge"),
+            hint: t(locale, "roadmap_skill_migrations_hint"),
+            description: t(locale, "roadmap_skill_migrations_desc"),
+            bullets: [
+              t(locale, "roadmap_skill_migrations_bullet1"),
+              t(locale, "roadmap_skill_migrations_bullet2"),
+              t(locale, "roadmap_skill_migrations_bullet3"),
+            ],
+            actions: [
+              { id: "open", label: openLabel(migrationsName), href: "/learn/migrations" },
+              { id: "related", label: relatedLabel },
+            ],
+          },
+        ],
+      },
+
+      deploy: {
+        title: t(locale, "roadmap_module_deploy_title"),
+        description: t(locale, "roadmap_module_deploy_desc"),
+        skills: [
+          {
+            key: "deploy",
+            name: deployName,
+            badge: t(locale, "roadmap_skill_deploy_badge"),
+            hint: t(locale, "roadmap_skill_deploy_hint"),
+            description: t(locale, "roadmap_skill_deploy_desc"),
+            bullets: [
+              t(locale, "roadmap_skill_deploy_bullet1"),
+              t(locale, "roadmap_skill_deploy_bullet2"),
+              t(locale, "roadmap_skill_deploy_bullet3"),
+            ],
+            actions: [
+              { id: "open", label: openLabel(deployName), href: "/learn/deploy" },
+              { id: "related", label: relatedLabel },
+            ],
+          },
+          {
+            key: "env",
+            name: envName,
+            badge: t(locale, "roadmap_skill_env_badge"),
+            hint: t(locale, "roadmap_skill_env_hint"),
+            description: t(locale, "roadmap_skill_env_desc"),
+            bullets: [
+              t(locale, "roadmap_skill_env_bullet1"),
+              t(locale, "roadmap_skill_env_bullet2"),
+              t(locale, "roadmap_skill_env_bullet3"),
+            ],
+            actions: [
+              { id: "open", label: openLabel(envName), href: "/learn/env" },
+              { id: "related", label: relatedLabel },
+            ],
+          },
+          {
+            key: "domain",
+            name: domainName,
+            badge: t(locale, "roadmap_skill_domain_badge"),
+            hint: t(locale, "roadmap_skill_domain_hint"),
+            description: t(locale, "roadmap_skill_domain_desc"),
+            bullets: [
+              t(locale, "roadmap_skill_domain_bullet1"),
+              t(locale, "roadmap_skill_domain_bullet2"),
+              t(locale, "roadmap_skill_domain_bullet3"),
+            ],
+            actions: [
+              { id: "open", label: openLabel(domainName), href: "/learn/domain" },
+              { id: "related", label: relatedLabel },
+            ],
+          },
+        ],
+      },
+
+      addons: {
+        title: t(locale, "roadmap_module_addons_title"),
+        description: t(locale, "roadmap_module_addons_desc"),
+        skills: [
+          {
+            key: "payment",
+            name: paymentName,
+            badge: t(locale, "roadmap_skill_payment_badge"),
+            hint: t(locale, "roadmap_skill_payment_hint"),
+            description: t(locale, "roadmap_skill_payment_desc"),
+            bullets: [
+              t(locale, "roadmap_skill_payment_bullet1"),
+              t(locale, "roadmap_skill_payment_bullet2"),
+              t(locale, "roadmap_skill_payment_bullet3"),
+            ],
+            actions: [
+              { id: "open", label: openLabel(paymentName), href: "/learn/payment" },
+              { id: "related", label: relatedLabel },
+            ],
+          },
+          {
+            key: "email",
+            name: emailName,
+            badge: t(locale, "roadmap_skill_email_badge"),
+            hint: t(locale, "roadmap_skill_email_hint"),
+            description: t(locale, "roadmap_skill_email_desc"),
+            bullets: [
+              t(locale, "roadmap_skill_email_bullet1"),
+              t(locale, "roadmap_skill_email_bullet2"),
+              t(locale, "roadmap_skill_email_bullet3"),
+            ],
+            actions: [
+              { id: "open", label: openLabel(emailName), href: "/learn/email" },
+              { id: "related", label: relatedLabel },
+            ],
+          },
+          {
+            key: "analytics",
+            name: analyticsName,
+            badge: t(locale, "roadmap_skill_analytics_badge"),
+            hint: t(locale, "roadmap_skill_analytics_hint"),
+            description: t(locale, "roadmap_skill_analytics_desc"),
+            bullets: [
+              t(locale, "roadmap_skill_analytics_bullet1"),
+              t(locale, "roadmap_skill_analytics_bullet2"),
+              t(locale, "roadmap_skill_analytics_bullet3"),
+            ],
+            actions: [
+              { id: "open", label: openLabel(analyticsName), href: "/learn/analytics" },
+              { id: "related", label: relatedLabel },
+            ],
+          },
+          {
+            key: "admin",
+            name: adminName,
+            badge: t(locale, "roadmap_skill_admin_badge"),
+            hint: t(locale, "roadmap_skill_admin_hint"),
+            description: t(locale, "roadmap_skill_admin_desc"),
+            bullets: [
+              t(locale, "roadmap_skill_admin_bullet1"),
+              t(locale, "roadmap_skill_admin_bullet2"),
+              t(locale, "roadmap_skill_admin_bullet3"),
+            ],
+            actions: [
+              { id: "open", label: openLabel(adminName), href: "/learn/admin" },
+              { id: "related", label: relatedLabel },
+            ],
+          },
+        ],
+      },
     },
-  },
-};
+  };
+}

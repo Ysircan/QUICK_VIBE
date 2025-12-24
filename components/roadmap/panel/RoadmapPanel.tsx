@@ -6,12 +6,14 @@ import { useRouter } from "next/navigation";
 import neo from "@/components/ui/neo/neo.module.css";
 import styles from "./roadmapPanel.module.css";
 
-import { ROADMAP_CONTENT } from "./roadmapContent";
+import { getRoadmapContent } from "./roadmapContent";
 import type { RoadmapAction, RoadmapModuleKey, RoadmapSkill } from "./types";
 
 import RoadmapTabs from "./RoadmapTabs";
 import RoadmapSkillList from "./RoadmapSkillList";
 import RoadmapSkillDetail from "./RoadmapSkillDetail";
+import { useLocale } from "@/components/site/LocaleProvider";
+import { t } from "@/components/site/i18n";
 
 type Props = {
   className?: string;
@@ -19,7 +21,8 @@ type Props = {
 
 export default function RoadmapPanel({ className }: Props) {
   const router = useRouter();
-  const content = ROADMAP_CONTENT;
+  const { locale } = useLocale();
+  const content = useMemo(() => getRoadmapContent(locale), [locale]);
 
   const initialModule = content.moduleOrder[0] ?? "frontend";
   const [activeModule, setActiveModule] = useState<RoadmapModuleKey>(initialModule);
@@ -75,14 +78,13 @@ export default function RoadmapPanel({ className }: Props) {
 
           <div className={styles.headerRight}>
             {content.header.primaryAction && (
-         <button
-  type="button"
-  className={[neo.uiBtn, styles.actionBtn, styles.actionBtnPrimary].join(" ")}
-  onClick={handlePrimary}
->
-  {content.header.primaryAction.label}
-</button>
-
+              <button
+                type="button"
+                className={[neo.uiBtn, styles.actionBtn, styles.actionBtnPrimary].join(" ")}
+                onClick={handlePrimary}
+              >
+                {content.header.primaryAction.label}
+              </button>
             )}
           </div>
         </div>
@@ -92,7 +94,7 @@ export default function RoadmapPanel({ className }: Props) {
         <div className={styles.grid}>
           {/* LEFT */}
           <div className={styles.sub}>
-            <div className={styles.sectionLabel}>SKILLS</div>
+            <div className={styles.sectionLabel}>{t(locale, "roadmap_section_skills")}</div>
             <RoadmapSkillList
               skills={moduleData.skills}
               activeKey={activeSkill?.key ?? ""}
@@ -105,18 +107,16 @@ export default function RoadmapPanel({ className }: Props) {
             {activeSkill ? (
               <RoadmapSkillDetail skill={activeSkill} onAction={handleAction} />
             ) : (
-              <div className={styles.tinyMuted}>No skill selected.</div>
+              <div className={styles.tinyMuted}>{t(locale, "roadmap_no_skill")}</div>
             )}
           </div>
         </div>
       </div>
 
       <div className={styles.bottom}>
+        <div className={styles.tinyMuted}>{t(locale, "roadmap_tip")}</div>
         <div className={styles.tinyMuted}>
-          Tip: this panel is a “picker + explainer”. The roadmap cards sit below.
-        </div>
-        <div className={styles.tinyMuted}>
-          Now viewing: {moduleData.title}
+          {t(locale, "roadmap_now_viewing")} {moduleData.title}
           {activeSkill ? ` / ${activeSkill.name}` : ""}
         </div>
       </div>

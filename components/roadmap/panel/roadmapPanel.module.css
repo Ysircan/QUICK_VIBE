@@ -13,9 +13,18 @@
   flex-direction: column;
   justify-content: space-between;
 
+  /* ✅ 立体外壳（neo） */
+  border-radius: 22px;
+  border: 2px solid var(--ink);
+  box-shadow: 10px 10px 0 var(--ink);
+
   background: rgba(255,255,255,.92);
   backdrop-filter: blur(6px);
+
+  /* ✅ 让边缘更干净一点 */
+  overflow: hidden;
 }
+
 
 /* ===== Header ===== */
 .header{
