@@ -1,0 +1,116 @@
+/* components/ui/neo/neo.module.css */
+
+.uiPill{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  height: 32px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 2px solid var(--ink, #111);
+  background: rgba(255,255,255,.92);
+  font-weight: 1000;
+  font-size: 11px;
+  letter-spacing: .10em;
+  box-shadow: 0 2px 0 var(--ink, #111);
+  white-space: nowrap;
+  user-select:none;
+}
+
+.uiDot{
+  width:10px;height:10px;border-radius:999px;
+  border:2px solid var(--ink, #111);
+  background: var(--dot, #ffe279);
+  box-shadow: 0 2px 0 var(--ink, #111);
+  flex:0 0 auto;
+}
+
+/* ============ Neo Dropdown ============ */
+
+.dd{ position:relative; display:inline-flex; }
+
+.btn{
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  height: 30px;
+  padding: 0 12px;
+  padding-right: 28px;
+  border-radius: 999px;
+  border: 2px solid var(--ink, #111);
+  background: rgba(255,255,255,.92);
+  box-shadow: 0 2px 0 var(--ink, #111);
+  font-weight: 1000;
+  font-size: 11px;
+  letter-spacing: .08em;
+  cursor:pointer;
+  user-select:none;
+  white-space:nowrap;
+}
+
+.btn:active{
+  transform: translateY(1px);
+  box-shadow: 0 1px 0 var(--ink, #111);
+}
+
+/* ✅ 不要光晕，改用高亮 */
+.open .btn{
+  background: rgba(255,226,121,.95);
+}
+
+.value{ white-space:nowrap; }
+
+.arrow{
+  position:absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-55%);
+  font-size: 12px;
+  opacity: .75;
+  pointer-events:none;
+}
+
+/* Menu */
+.menu{
+  position:absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  min-width: 100%;
+  padding: 10px;
+  border: 2px solid var(--ink, #111);
+  border-radius: 14px;
+  background: rgba(255,255,255,.96);
+  box-shadow: 6px 6px 0 var(--ink, #111);
+  display:none;
+  z-index: 80;
+}
+
+.open .menu{ display:block; }
+
+.opt{
+  width: 100%;
+  height: 30px;
+  margin: 0 0 8px 0;
+  border-radius: 999px;
+  border: 2px solid var(--ink, #111);
+  background: rgba(255,255,255,.92);
+  box-shadow: 0 2px 0 var(--ink, #111);
+  font-weight: 1000;
+  font-size: 11px;
+  letter-spacing: .08em;
+  cursor:pointer;
+  text-align:left;
+  padding: 0 12px;
+  display:flex;
+  align-items:center;
+  gap: 8px;
+}
+
+.opt:last-child{ margin-bottom:0; }
+
+.opt:hover{ background: rgba(255,226,121,.85); }
+
+.opt[aria-selected="true"]{
+  background: rgba(255,226,121,.95);
+}
