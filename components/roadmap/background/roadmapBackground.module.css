@@ -237,18 +237,19 @@
 /* 已有：980px -> 2列。再加：更小屏 -> 1列 */
 @media (max-width: 560px){
   .bg{
-    opacity: .45;                 /* 手机上更淡一点，避免抢内容 */
+    opacity: .45;
   }
 
   .bgGrid{
-    grid-template-columns: 1fr;   /* ✅ 1列，不卡 */
-    padding: 12px;               /* ✅ 缩小边距 */
-    gap: 12px;                   /* ✅ 缩小列间距 */
+    grid-template-columns: 1fr;
+    padding: 12px;
+    gap: 12px;
     max-width: 520px;
   }
 
   .rail{
     border-radius: 16px;
+    height: 200px;              /* ✅ 新增：固定短高度 */
   }
 
   .railInner{
@@ -268,9 +269,10 @@
   .sub{ font-size: 11px; }
   .cap{ height: 24px; font-size: 10px; }
   .tag{ height: 20px; font-size: 9px; }
-}
 
-/* 极小屏（可选）：再淡一点 */
-@media (max-width: 380px){
-  .bg{ opacity: .38; }
+  /* ✅ 新增：隐藏第3/4条轨道 */
+  .bgGrid > :nth-child(3),
+  .bgGrid > :nth-child(4){
+    display:none;
+  }
 }
