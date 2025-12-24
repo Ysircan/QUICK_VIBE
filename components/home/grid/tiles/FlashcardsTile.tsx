@@ -3,10 +3,11 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import styles from "./flashcardsTile.module.css";
+import { useLocale } from "@/components/site/LocaleProvider";
+import { t } from "@/components/site/i18n";
 
 type Phase = "idle" | "typing" | "running";
 
-// ✅ 固定 1 对 1，不会乱
 const DECK = [
   { en: "code", zh: "代码" },
   { en: "frontend", zh: "前端" },
@@ -16,6 +17,7 @@ const DECK = [
 ];
 
 export default function FlashcardsTile() {
+  const { locale } = useLocale();
   const codeLines = useMemo(
     () => [
       `const deck = ["code","frontend","backend","database","deployment"];`,
@@ -68,12 +70,10 @@ export default function FlashcardsTile() {
     }
 
     if (phase === "running") {
-      // ✅ 逻辑：一张卡 = 英文/中文翻一次；翻回英文时才切到下一张
       flipTimerRef.current = window.setInterval(() => {
         setFlipped((f) => {
           const next = !f;
 
-          // next === false 表示翻回“英文面”，此时推进到下一张
           if (next === false) {
             setIdx((p) => (p + 1) % DECK.length);
             setKnown((k) => Math.min(99, k + (Math.random() > 0.7 ? 1 : 0)));
@@ -104,14 +104,14 @@ export default function FlashcardsTile() {
           <div className={styles.left}>
             <span className={styles.uiPill}>
               <span className={styles.uiDot} />
-              DEMO 02
+              {t(locale, "grid_demo_02")}
             </span>
 
-            <span className={styles.capBtn}>FLASHCARDS</span>
+            <span className={styles.capBtn}>{t(locale, "grid_flashcards")}</span>
 
             <span className={styles.uiPill}>
               <span className={styles.uiDot} />
-              ENGLISH
+              {t(locale, "grid_english")}
             </span>
           </div>
         </header>
@@ -119,8 +119,8 @@ export default function FlashcardsTile() {
         <div className={styles.body}>
           <section className={`${styles.panel} ${styles.codePanel}`}>
             <div className={styles.panelTop}>
-              <span>CODE</span>
-              <span className={styles.meta}>minimal</span>
+              <span>{t(locale, "grid_code")}</span>
+              <span className={styles.meta}>{t(locale, "grid_minimal")}</span>
             </div>
 
             <div className={styles.codeArea}>
@@ -134,8 +134,8 @@ export default function FlashcardsTile() {
 
           <section className={`${styles.panel} ${styles.resultPanel}`}>
             <div className={styles.panelTop}>
-              <span>RESULT</span>
-              <span className={styles.meta}>auto flip</span>
+              <span>{t(locale, "grid_result")}</span>
+              <span className={styles.meta}>{t(locale, "grid_auto_flip")}</span>
             </div>
 
             <div className={styles.resultCanvas}>
@@ -143,26 +143,24 @@ export default function FlashcardsTile() {
                 <div className={styles.cardBoard}>
                   <div className={styles.miniCard} data-flipped={flipped}>
                     <div className={styles.face}>
-                      {/* ✅ 中文面 */}
                       <div className={styles.bigZh}>{cur.zh}</div>
-                      <div className={styles.sub}>meaning</div>
+                      <div className={styles.sub}>{t(locale, "grid_meaning")}</div>
                     </div>
                     <div className={styles.back}>
-                      {/* ✅ 英文面 */}
                       <div className={styles.bigEn}>{cur.en}</div>
-                      <div className={styles.sub}>spell</div>
+                      <div className={styles.sub}>{t(locale, "grid_spell")}</div>
                     </div>
                   </div>
 
                   <div className={styles.miniRow}>
-                    <span className={styles.miniPill}>1.2s</span>
-                    <span className={styles.miniPill}>AUTO</span>
+                    <span className={styles.miniPill}>{t(locale, "grid_interval")}</span>
+                    <span className={styles.miniPill}>{t(locale, "grid_auto")}</span>
                   </div>
                 </div>
 
                 <div className={styles.kpiStack}>
                   <div className={styles.kpiBox}>
-                    <div className={styles.k}>WORD</div>
+                    <div className={styles.k}>{t(locale, "grid_word")}</div>
                     <div className={styles.vMono}>{cur.en}</div>
                     <div className={styles.bar}>
                       <i />
@@ -170,7 +168,7 @@ export default function FlashcardsTile() {
                   </div>
 
                   <div className={styles.kpiBox}>
-                    <div className={styles.k}>KNOWN</div>
+                    <div className={styles.k}>{t(locale, "grid_known")}</div>
                     <div className={styles.v}>{String(known).padStart(2, "0")}%</div>
                     <div className={styles.bar}>
                       <i />
@@ -182,12 +180,10 @@ export default function FlashcardsTile() {
           </section>
 
           <div className={styles.promptRow}>
-            <span className={styles.promptLabel}>VIBE</span>
-            <div className={styles.promptText}>
-              Make a flashcard
-            </div>
+            <span className={styles.promptLabel}>{t(locale, "grid_vibe")}</span>
+            <div className={styles.promptText}>{t(locale, "grid_flash_prompt")}</div>
             <button className={styles.sendBtn} onClick={onSend} disabled={locked} type="button">
-              <span>SEND</span>
+              <span>{t(locale, "grid_send")}</span>
               <span className={styles.uiDot} />
             </button>
           </div>

@@ -4,10 +4,12 @@ import React, { useEffect, useMemo, useState } from "react";
 import styles from "./homeHero.module.css";
 import HeroRail from "./hero/HeroRail";
 import HeroCenter from "./hero/HeroCenter";
+import { useLocale } from "@/components/site/LocaleProvider";
+import { t } from "@/components/site/i18n";
 
 export type HeroTag = { label: string; accent?: string };
 export type HeroMiniItem = {
-  cap: "CORE" | "SHIP" | "PRO";
+  cap: string;
   title: string;
   sub: string;
   tags: HeroTag[];
@@ -23,6 +25,7 @@ function withWashes(items: Omit<HeroMiniItem, "washClass">[]): HeroMiniItem[] {
 export default function HomeHero() {
   const [isFlipped, setIsFlipped] = useState(false);
   const [paused, setPaused] = useState(false);
+  const { locale } = useLocale();
 
   // 自动翻转：不快、不晕（你之前说“有点快”）
   useEffect(() => {
@@ -35,104 +38,104 @@ export default function HomeHero() {
     () =>
       withWashes([
         {
-          cap: "CORE",
-          title: "Auth Session",
-          sub: "Login state + guards.",
+          cap: t(locale, "hero_cap_core"),
+          title: t(locale, "hero_title_auth_session"),
+          sub: t(locale, "hero_sub_auth_session"),
           tags: [
-            { label: "BACKEND", accent: "var(--coral)" },
-            { label: "AUTH", accent: "var(--violet)" },
+            { label: t(locale, "tag_backend"), accent: "var(--coral)" },
+            { label: t(locale, "tag_auth"), accent: "var(--violet)" },
           ],
         },
         {
-          cap: "PRO",
-          title: "Caching",
-          sub: "Faster reads, less cost.",
+          cap: t(locale, "hero_cap_pro"),
+          title: t(locale, "hero_title_caching"),
+          sub: t(locale, "hero_sub_caching"),
           tags: [
-            { label: "BACKEND", accent: "var(--coral)" },
-            { label: "PERF", accent: "var(--amber)" },
+            { label: t(locale, "tag_backend"), accent: "var(--coral)" },
+            { label: t(locale, "tag_perf"), accent: "var(--amber)" },
           ],
         },
         {
-          cap: "SHIP",
-          title: "Upload UI",
-          sub: "Drag drop + progress + errors.",
+          cap: t(locale, "hero_cap_ship"),
+          title: t(locale, "hero_title_upload_ui"),
+          sub: t(locale, "hero_sub_upload_ui"),
           tags: [
-            { label: "FRONTEND", accent: "var(--sky)" },
-            { label: "FILES", accent: "var(--violet)" },
+            { label: t(locale, "tag_frontend"), accent: "var(--sky)" },
+            { label: t(locale, "tag_files"), accent: "var(--violet)" },
           ],
         },
         {
-          cap: "PRO",
-          title: "CRUD Table",
-          sub: "List, filters, actions.",
+          cap: t(locale, "hero_cap_pro"),
+          title: t(locale, "hero_title_crud_table"),
+          sub: t(locale, "hero_sub_crud_table"),
           tags: [
-            { label: "FRONTEND", accent: "var(--sky)" },
-            { label: "DATA", accent: "var(--teal)" },
+            { label: t(locale, "tag_frontend"), accent: "var(--sky)" },
+            { label: t(locale, "tag_data"), accent: "var(--teal)" },
           ],
         },
         {
-          cap: "CORE",
-          title: "REST API",
-          sub: "Routes + validation.",
+          cap: t(locale, "hero_cap_core"),
+          title: t(locale, "hero_title_rest_api"),
+          sub: t(locale, "hero_sub_rest_api"),
           tags: [
-            { label: "BACKEND", accent: "var(--coral)" },
-            { label: "API", accent: "var(--amber)" },
+            { label: t(locale, "tag_backend"), accent: "var(--coral)" },
+            { label: t(locale, "tag_api"), accent: "var(--amber)" },
           ],
         },
       ]),
-    []
+    [locale]
   );
 
   const rightItems = useMemo(
     () =>
       withWashes([
         {
-          cap: "PRO",
-          title: "Migrations",
-          sub: "Safe schema changes.",
+          cap: t(locale, "hero_cap_pro"),
+          title: t(locale, "hero_title_migrations"),
+          sub: t(locale, "hero_sub_migrations"),
           tags: [
-            { label: "DATABASE", accent: "var(--teal)" },
-            { label: "SCHEMA", accent: "var(--amber)" },
+            { label: t(locale, "tag_database"), accent: "var(--teal)" },
+            { label: t(locale, "tag_schema"), accent: "var(--amber)" },
           ],
         },
         {
-          cap: "PRO",
-          title: "Monitoring",
-          sub: "Errors, logs, uptime.",
+          cap: t(locale, "hero_cap_pro"),
+          title: t(locale, "hero_title_monitoring"),
+          sub: t(locale, "hero_sub_monitoring"),
           tags: [
-            { label: "DEPLOY", accent: "var(--sky)" },
-            { label: "OPS", accent: "var(--violet)" },
+            { label: t(locale, "tag_deploy"), accent: "var(--sky)" },
+            { label: t(locale, "tag_ops"), accent: "var(--violet)" },
           ],
         },
         {
-          cap: "CORE",
-          title: "Deploy to Vercel",
-          sub: "Preview → prod fast.",
+          cap: t(locale, "hero_cap_core"),
+          title: t(locale, "hero_title_deploy_vercel"),
+          sub: t(locale, "hero_sub_deploy_vercel"),
           tags: [
-            { label: "DEPLOY", accent: "var(--sky)" },
-            { label: "VERCEL", accent: "var(--amber)" },
+            { label: t(locale, "tag_deploy"), accent: "var(--sky)" },
+            { label: t(locale, "tag_vercel"), accent: "var(--amber)" },
           ],
         },
         {
-          cap: "PRO",
-          title: "Env Vars",
-          sub: "Secrets, config, staging.",
+          cap: t(locale, "hero_cap_pro"),
+          title: t(locale, "hero_title_env_vars"),
+          sub: t(locale, "hero_sub_env_vars"),
           tags: [
-            { label: "DEPLOY", accent: "var(--sky)" },
-            { label: "CONFIG", accent: "var(--teal)" },
+            { label: t(locale, "tag_deploy"), accent: "var(--sky)" },
+            { label: t(locale, "tag_config"), accent: "var(--teal)" },
           ],
         },
         {
-          cap: "SHIP",
-          title: "CI Checks",
-          sub: "Lint + type + tests gate.",
+          cap: t(locale, "hero_cap_ship"),
+          title: t(locale, "hero_title_ci_checks"),
+          sub: t(locale, "hero_sub_ci_checks"),
           tags: [
-            { label: "DEPLOY", accent: "var(--sky)" },
-            { label: "CI", accent: "var(--coral)" },
+            { label: t(locale, "tag_deploy"), accent: "var(--sky)" },
+            { label: t(locale, "tag_ci"), accent: "var(--coral)" },
           ],
         },
       ]),
-    []
+    [locale]
   );
 
   return (

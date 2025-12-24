@@ -2,10 +2,13 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import styles from "./tetrisTile.module.css";
+import { useLocale } from "@/components/site/LocaleProvider";
+import { t } from "@/components/site/i18n";
 
 type Phase = "idle" | "typing" | "running";
 
 export default function TetrisTile() {
+  const { locale } = useLocale();
   const codeLines = useMemo(
     () => [
       `const board = grid(10, 14);`,
@@ -93,14 +96,14 @@ export default function TetrisTile() {
           <div className={styles.left}>
             <span className={styles.uiPill}>
               <span className={styles.uiDot} />
-              DEMO 01
+              {t(locale, "grid_demo_01")}
             </span>
 
-            <span className={styles.capBtn}>TETRIS</span>
+            <span className={styles.capBtn}>{t(locale, "grid_tetris")}</span>
 
             <span className={styles.uiPill}>
               <span className={styles.uiDot} />
-              GAME
+              {t(locale, "grid_game")}
             </span>
           </div>
           {/* type-code-play / running+✓ 全部不渲染 */}
@@ -109,8 +112,8 @@ export default function TetrisTile() {
         <div className={styles.body}>
           <section className={`${styles.panel} ${styles.codePanel}`}>
             <div className={styles.panelTop}>
-              <span>CODE</span>
-              <span className={styles.meta}>minimal</span>
+              <span>{t(locale, "grid_code")}</span>
+              <span className={styles.meta}>{t(locale, "grid_minimal")}</span>
             </div>
 
             <div className={styles.codeArea} aria-label="code">
@@ -124,8 +127,8 @@ export default function TetrisTile() {
 
           <section className={`${styles.panel} ${styles.resultPanel}`}>
             <div className={styles.panelTop}>
-              <span>RESULT</span>
-              <span className={styles.meta}>preview</span>
+              <span>{t(locale, "grid_result")}</span>
+              <span className={styles.meta}>{t(locale, "grid_preview")}</span>
             </div>
 
             <div className={styles.resultCanvas} aria-label="result">
@@ -136,7 +139,7 @@ export default function TetrisTile() {
 
                 <div className={styles.kpiStack}>
                   <div className={styles.kpiBox}>
-                    <div className={styles.k}>SCORE</div>
+                    <div className={styles.k}>{t(locale, "grid_score")}</div>
                     <div className={styles.v}>
                       {String(score).padStart(4, "0")}
                     </div>
@@ -146,7 +149,7 @@ export default function TetrisTile() {
                   </div>
 
                   <div className={styles.kpiBox}>
-                    <div className={styles.k}>LINES</div>
+                    <div className={styles.k}>{t(locale, "grid_lines")}</div>
                     <div className={styles.v}>
                       {String(lines).padStart(2, "0")}
                     </div>
@@ -160,10 +163,9 @@ export default function TetrisTile() {
           </section>
 
           <div className={styles.promptRow}>
-            <span className={styles.promptLabel}>VIBE</span>
+            <span className={styles.promptLabel}>{t(locale, "grid_vibe")}</span>
             <div className={styles.promptText}>
-              Build a tiny Tetris game
-            
+              {t(locale, "grid_tetris_prompt")}
             </div>
             <button
               className={styles.sendBtn}
@@ -171,7 +173,7 @@ export default function TetrisTile() {
               disabled={locked}
               type="button"
             >
-              <span>SEND</span>
+              <span>{t(locale, "grid_send")}</span>
               <span className={styles.uiDot} />
             </button>
           </div>

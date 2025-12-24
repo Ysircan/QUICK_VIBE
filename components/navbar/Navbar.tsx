@@ -9,11 +9,11 @@ import { useLocale } from "@/components/site/LocaleProvider";
 import { t } from "@/components/site/i18n";
 import LangGlobe from "./LangGlobe";
 
-export type NavKey = "home" | "yellowpages" | "learn" | "contact";
+export type NavKey = "home" | "roadmap" | "learn" | "contact";
 
 function getActiveKey(pathname: string): NavKey {
   if (pathname === "/") return "home";
-  if (pathname.startsWith("/yellowpages")) return "yellowpages";
+  if (pathname.startsWith("/roadmap")) return "roadmap";
   if (pathname.startsWith("/learn")) return "learn";
   if (pathname.startsWith("/contact")) return "contact";
   return "home";
@@ -21,7 +21,7 @@ function getActiveKey(pathname: string): NavKey {
 
 function labelKey(k: NavKey) {
   if (k === "home") return "nav_home" as const;
-  if (k === "yellowpages") return "nav_yellowpages" as const;
+  if (k === "roadmap") return "nav_roadmap" as const;
   if (k === "learn") return "nav_learn" as const;
   return "nav_contact" as const;
 }

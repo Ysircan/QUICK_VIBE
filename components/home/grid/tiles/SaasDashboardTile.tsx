@@ -2,10 +2,13 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import styles from "./saasDashboardTile.module.css";
+import { useLocale } from "@/components/site/LocaleProvider";
+import { t } from "@/components/site/i18n";
 
 type Phase = "idle" | "typing" | "running";
 
 export default function SaasDashboardTile() {
+  const { locale } = useLocale();
   const codeLines = useMemo(
     () => [
       `const data = fetch("/api/metrics");`,
@@ -95,14 +98,14 @@ export default function SaasDashboardTile() {
           <div className={styles.left}>
             <span className={styles.uiPill}>
               <span className={styles.uiDot} />
-              DEMO 03
+              {t(locale, "grid_demo_03")}
             </span>
 
-            <span className={styles.capBtn}>DASHBOARD</span>
+            <span className={styles.capBtn}>{t(locale, "grid_dashboard")}</span>
 
             <span className={styles.uiPill}>
               <span className={styles.uiDot} />
-              SAAS
+              {t(locale, "grid_saas")}
             </span>
           </div>
         </header>
@@ -110,8 +113,8 @@ export default function SaasDashboardTile() {
         <div className={styles.body}>
           <section className={`${styles.panel} ${styles.codePanel}`}>
             <div className={styles.panelTop}>
-              <span>CODE</span>
-              <span className={styles.meta}>minimal</span>
+              <span>{t(locale, "grid_code")}</span>
+              <span className={styles.meta}>{t(locale, "grid_minimal")}</span>
             </div>
 
             <div className={styles.codeArea}>
@@ -125,8 +128,8 @@ export default function SaasDashboardTile() {
 
           <section className={`${styles.panel} ${styles.resultPanel}`}>
             <div className={styles.panelTop}>
-              <span>RESULT</span>
-              <span className={styles.meta}>live kpi</span>
+              <span>{t(locale, "grid_result")}</span>
+              <span className={styles.meta}>{t(locale, "grid_live_kpi")}</span>
             </div>
 
             <div className={styles.resultCanvas}>
@@ -134,8 +137,8 @@ export default function SaasDashboardTile() {
               <div className={styles.saasWrap}>
                 <div className={styles.chartBoard}>
                   <div className={styles.chartTop}>
-                    <span className={styles.chartTag}>WEEK</span>
-                    <span className={styles.chartTag}>RETENTION</span>
+                    <span className={styles.chartTag}>{t(locale, "grid_week")}</span>
+                    <span className={styles.chartTag}>{t(locale, "grid_retention")}</span>
                   </div>
 
                   <div className={styles.chartArea}>
@@ -145,13 +148,13 @@ export default function SaasDashboardTile() {
 
                   <div className={styles.legend}>
                     <span className={styles.dot} />
-                    <span className={styles.legendText}>active trend</span>
+                    <span className={styles.legendText}>{t(locale, "grid_active_trend")}</span>
                   </div>
                 </div>
 
                 <div className={styles.kpiStack}>
                   <div className={styles.kpiBox}>
-                    <div className={styles.k}>ACTIVE</div>
+                    <div className={styles.k}>{t(locale, "grid_active")}</div>
                     <div className={styles.v}>{active}</div>
                     <div className={styles.bar}>
                       <i />
@@ -159,7 +162,7 @@ export default function SaasDashboardTile() {
                   </div>
 
                   <div className={styles.kpiBox}>
-                    <div className={styles.k}>MRR</div>
+                    <div className={styles.k}>{t(locale, "grid_mrr")}</div>
                     <div className={styles.vMono}>${mrr.toLocaleString()}</div>
                     <div className={styles.bar}>
                       <i />
@@ -167,7 +170,7 @@ export default function SaasDashboardTile() {
                   </div>
 
                   <div className={styles.kpiBox}>
-                    <div className={styles.k}>HEALTH</div>
+                    <div className={styles.k}>{t(locale, "grid_health")}</div>
                     <div className={styles.v}>{health}%</div>
                     <div className={styles.bar}>
                       <i />
@@ -179,12 +182,12 @@ export default function SaasDashboardTile() {
           </section>
 
           <div className={styles.promptRow}>
-            <span className={styles.promptLabel}>VIBE</span>
+            <span className={styles.promptLabel}>{t(locale, "grid_vibe")}</span>
             <div className={styles.promptText}>
-              Build a tiny SaaS dashboard: chart + KPIs update after run.
+              {t(locale, "grid_saas_prompt")}
             </div>
             <button className={styles.sendBtn} onClick={onSend} disabled={locked} type="button">
-              <span>SEND</span>
+              <span>{t(locale, "grid_send")}</span>
               <span className={styles.uiDot} />
             </button>
           </div>

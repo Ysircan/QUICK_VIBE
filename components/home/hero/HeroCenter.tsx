@@ -2,6 +2,8 @@
 
 import React from "react";
 import styles from "../homeHero.module.css";
+import { useLocale } from "@/components/site/LocaleProvider";
+import { t } from "@/components/site/i18n";
 
 export default function HeroCenter({
   isFlipped,
@@ -10,15 +12,17 @@ export default function HeroCenter({
   isFlipped: boolean;
   onFlip: () => void;
 }) {
+  const { locale } = useLocale();
+
   return (
     <div className={styles.center}>
       <div className={styles.centerShell}>
         <div className={styles.pillRow}>
-          <span className={styles.cap}>VIBE CODING</span>
-          <span className={styles.capGhost}>DEPLOY-FIRST</span>
+          <span className={styles.cap}>{t(locale, "hero_center_cap_vibe")}</span>
+          <span className={styles.capGhost}>{t(locale, "hero_center_cap_deploy")}</span>
 
           <button type="button" className={styles.flipBtn} onClick={onFlip}>
-            Flip
+            {t(locale, "hero_center_flip")}
           </button>
         </div>
 
@@ -26,57 +30,65 @@ export default function HeroCenter({
           <div className={`${styles.flipInner} ${isFlipped ? styles.isFlipped : ""}`}>
             {/* Front */}
             <div className={`${styles.face} ${styles.front}`}>
-              <h1 className={styles.h1}>Vibe coding starts here.</h1>
+              <h1 className={styles.h1}>{t(locale, "hero_center_title")}</h1>
               <p className={styles.sub}>
-                Ship a demo fast. Learn <b>Frontend</b> · <b>Backend</b> · <b>Deploy</b> · <b>Database</b>.
+                {t(locale, "hero_center_sub_before")}
+                <b>{t(locale, "hero_center_sub_frontend")}</b>
+                {t(locale, "hero_center_sub_sep")}
+                <b>{t(locale, "hero_center_sub_backend")}</b>
+                {t(locale, "hero_center_sub_sep")}
+                <b>{t(locale, "hero_center_sub_deploy")}</b>
+                {t(locale, "hero_center_sub_sep")}
+                <b>{t(locale, "hero_center_sub_database")}</b>
+                {t(locale, "hero_center_sub_after")}
               </p>
 
               <div className={styles.ctaRow}>
                 <a className={`${styles.btn} ${styles.btnPrimary}`} href="/start">
-                  Start with a Demo
+                  {t(locale, "hero_center_cta_demo")}
                 </a>
                 <a className={styles.btn} href="/learn">
-                  Browse Roadmap
+                  {t(locale, "hero_center_cta_roadmap")}
                 </a>
               </div>
 
               <div className={styles.microRow}>
-                <span className={styles.micro}>No fluff</span>
-                <span className={styles.micro}>Practical</span>
-                <span className={styles.micro}>Ship weekly</span>
+                <span className={styles.micro}>{t(locale, "hero_center_micro_nofluff")}</span>
+                <span className={styles.micro}>{t(locale, "hero_center_micro_practical")}</span>
+                <span className={styles.micro}>{t(locale, "hero_center_micro_ship")}</span>
               </div>
             </div>
 
             {/* Back */}
             <div className={`${styles.face} ${styles.back}`}>
               <div className={styles.backTop}>
-                <div className={styles.backTitle}>What you’ll be able to ship</div>
-                <div className={styles.backHint}>flip anytime</div>
+                <div className={styles.backTitle}>{t(locale, "hero_center_back_title")}</div>
+                <div className={styles.backHint}>{t(locale, "hero_center_back_hint")}</div>
               </div>
 
               <div className={styles.backGrid}>
                 <div className={styles.backBlock}>
-                  <div className={styles.backCap}>FRONTEND</div>
-                  <div className={styles.backLine}>Landing · UI states · Upload flow</div>
+                  <div className={styles.backCap}>{t(locale, "hero_center_back_frontend")}</div>
+                  <div className={styles.backLine}>{t(locale, "hero_center_back_frontend_line")}</div>
                 </div>
                 <div className={styles.backBlock}>
-                  <div className={styles.backCap}>BACKEND</div>
-                  <div className={styles.backLine}>REST routes · Auth guard · Webhooks</div>
+                  <div className={styles.backCap}>{t(locale, "hero_center_back_backend")}</div>
+                  <div className={styles.backLine}>{t(locale, "hero_center_back_backend_line")}</div>
                 </div>
                 <div className={styles.backBlock}>
-                  <div className={styles.backCap}>DATABASE</div>
-                  <div className={styles.backLine}>Schema · Migrations · Index basics</div>
+                  <div className={styles.backCap}>{t(locale, "hero_center_back_database")}</div>
+                  <div className={styles.backLine}>{t(locale, "hero_center_back_database_line")}</div>
                 </div>
                 <div className={styles.backBlock}>
-                  <div className={styles.backCap}>DEPLOY</div>
-                  <div className={styles.backLine}>Env · Preview → Prod · Monitoring</div>
+                  <div className={styles.backCap}>{t(locale, "hero_center_back_deploy")}</div>
+                  <div className={styles.backLine}>{t(locale, "hero_center_back_deploy_line")}</div>
                 </div>
               </div>
 
               <div className={styles.backFooter}>
-                <span className={styles.micro}>Copy patterns</span>
-                <span className={styles.micro}>Deploy first</span>
-                <span className={styles.micro}>Iterate fast</span>
+                <span className={styles.micro}>{t(locale, "hero_center_back_footer_copy")}</span>
+                <span className={styles.micro}>{t(locale, "hero_center_back_footer_deploy")}</span>
+                <span className={styles.micro}>{t(locale, "hero_center_back_footer_iterate")}</span>
               </div>
             </div>
           </div>
