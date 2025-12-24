@@ -276,3 +276,9 @@
     display:none;
   }
 }
+/* ✅ Mobile: disable roadmap background completely */
+@media (max-width: 900px){
+  .bg{
+    display: none !important;
+  }
+}
