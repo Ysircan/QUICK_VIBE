@@ -19,27 +19,24 @@
   /* navbar 下方开始画背景（由 TSX 传入） */
   --roadmap-top: 92px;
 
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: var(--roadmap-top);
-  bottom: 0;
+  position: relative;
+  min-height: 100vh;
 
+  /* ✅ 内容可交互 */
+  pointer-events: auto;
+  color: var(--ink);
+}
+
+/* 轻微暗角/光斑（背景层） */
+.bg::before{
+  content:"";
+  position: fixed;
+  left:0; right:0;
+  top: var(--roadmap-top);
+  bottom:0;
   z-index: 0;
   pointer-events: none;
 
-  /* ✅ 防止全局白字覆盖 */
-  color: var(--ink);
-
-  opacity: .55;
-  filter: saturate(.98);
-}
-
-/* 轻微暗角/光斑 */
-.bg::before{
-  content:"";
-  position:absolute;
-  inset:0;
   background:
     radial-gradient(1200px 520px at 50% 10%, rgba(0,0,0,.08), transparent 60%),
     radial-gradient(900px 600px at 20% 90%, rgba(0,0,0,.06), transparent 60%),
@@ -48,15 +45,39 @@
   opacity: .55;
 }
 
+/* ✅ 背景 rails：固定在屏幕上，永远不吃点击 */
 .bgGrid{
-  position:absolute;
-  inset: 0;
+  position: fixed;
+  left:0; right:0;
+  top: var(--roadmap-top);
+  bottom:0;
+
+  z-index: 0;
+  pointer-events: none;
+
   display:grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 18px;
+
   padding: 24px;
   max-width: 1320px;
   margin: 0 auto;
+
+  opacity: .55;
+  filter: saturate(.98);
+}
+
+/* ✅ 内容层：居中、往下挪、压在背景上 */
+.stage{
+  position: relative;
+  z-index: 2;
+  pointer-events: auto;
+
+  display: flex;
+  justify-content: center;
+
+  /* 往下挪 + 左右安全边距 */
+  padding: calc(var(--roadmap-top) + 22px) 18px 44px;
 }
 
 /* =========================
@@ -114,11 +135,11 @@
   opacity: .9;
   transform: translateZ(0);
 
-  /* ✅ 默认值（最终速度由 RoadmapRail.tsx 的 inline animationDuration 决定） */
+  /* 默认值（最终速度由 RoadmapRail.tsx inline 决定） */
   animation-duration: 180s;
 }
 
-/* ✅ 方向动画 */
+/* 方向动画 */
 .up .track{ animation-name: railUp; }
 .down .track{ animation-name: railDown; }
 
@@ -141,7 +162,6 @@
   background: rgba(255,255,255,.62);
   box-shadow: 0 10px 24px rgba(0,0,0,.08);
   padding: 10px 10px 9px;
-
   color: var(--ink);
 }
 
@@ -164,7 +184,6 @@
   box-shadow: 0 2px 0 var(--ink);
   font-size: 11px;
   white-space: nowrap;
-
   color: var(--ink);
 }
 
@@ -210,7 +229,6 @@
   font-weight: 900;
   font-size: 10px;
   letter-spacing: .4px;
-
   color: var(--ink);
 }
 
@@ -232,53 +250,41 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
-/* ===== Mobile tuning ===== */
 
-/* 已有：980px -> 2列。再加：更小屏 -> 1列 */
+/* 更小屏 -> 1列 + 短轨道 */
 @media (max-width: 560px){
-  .bg{
-    opacity: .45;
-  }
-
   .bgGrid{
     grid-template-columns: 1fr;
     padding: 12px;
     gap: 12px;
     max-width: 520px;
+    opacity: .45;
   }
 
   .rail{
     border-radius: 16px;
-    height: 200px;              /* ✅ 新增：固定短高度 */
+    height: 200px;
   }
 
-  .railInner{
-    inset: 8px;
-  }
+  .railInner{ inset: 8px; }
+  .track{ padding: 8px; gap: 10px; }
 
-  .track{
-    padding: 8px;
-    gap: 10px;
-  }
-
-  .mini{
-    padding: 9px 9px 8px;
-  }
-
+  .mini{ padding: 9px 9px 8px; }
   .title{ font-size: 12px; }
   .sub{ font-size: 11px; }
   .cap{ height: 24px; font-size: 10px; }
   .tag{ height: 20px; font-size: 9px; }
 
-  /* ✅ 新增：隐藏第3/4条轨道 */
+  /* 隐藏第3/4条轨道 */
   .bgGrid > :nth-child(3),
   .bgGrid > :nth-child(4){
     display:none;
   }
 }
-/* ✅ Mobile: disable roadmap background completely */
+
+/* ✅ Mobile: hide background rails only (keep content!) */
 @media (max-width: 900px){
-  .bg{
+  .bgGrid{
     display: none !important;
   }
 }
