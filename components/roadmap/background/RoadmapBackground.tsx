@@ -5,22 +5,27 @@ import styles from "./roadmapBackground.module.css";
 import RoadmapRail from "./RoadmapRail";
 
 export default function RoadmapBackground({
-  topOffset = 92, // ✅ navbar 高度（不确定就先用 92，后面随时改）
+  topOffset = 92,
+  children,
 }: {
   topOffset?: number;
+  children?: React.ReactNode;
 }) {
   return (
     <div
       className={styles.bg}
-      aria-hidden="true"
       style={{ ["--roadmap-top" as any]: `${topOffset}px` }}
     >
-      <div className={styles.bgGrid}>
+      {/* ✅ background only */}
+      <div className={styles.bgGrid} aria-hidden="true">
         <RoadmapRail colIndex={0} direction="up" />
         <RoadmapRail colIndex={1} direction="down" />
         <RoadmapRail colIndex={2} direction="up" />
         <RoadmapRail colIndex={3} direction="down" />
       </div>
+
+      {/* ✅ content layer */}
+      <div className={styles.stage}>{children}</div>
     </div>
   );
 }
