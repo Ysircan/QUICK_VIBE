@@ -160,7 +160,7 @@ export default function LearnLeft() {
         <LessonList
           lessons={visibleLessons}
           currentId={currentId}
-          progress={progress}
+         
           onSelect={setCurrentId}
         />
       </div>
