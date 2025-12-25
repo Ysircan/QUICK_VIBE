@@ -1,0 +1,86 @@
+.indexBox{
+  border: 2px solid rgba(0,0,0,14);
+  border-radius: 18px;
+  background: rgba(255,255,255,86);
+  padding: 10px;
+  margin: 10px 0 12px;
+}
+
+.indexTop{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.hint{
+  margin:0;
+  font-size: 12px;
+  font-weight: 1100;
+  color: rgba(0,0,0,72);
+}
+
+.indexPanel{ margin-top: 10px; }
+
+.indexMain{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+.indexSub{
+  margin-top:10px;
+  padding-top:10px;
+  border-top: 2px dashed rgba(0,0,0,10);
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+.indexSubLabel{
+  width:100%;
+  font-size:12px;
+  font-weight:1200;
+  color: rgba(0,0,0,72);
+  margin: 0 0 -2px;
+}
+
+/* 小一点的 STACK toggle（对应 HTML 的 pillTiny 观感） */
+.pillTiny{
+  height: 30px;
+  padding: 0 10px;
+  font-size: 12px;
+}
+
+/* ===== Index pills: unselected look faded (not disabled grey) ===== */
+/* (按 HTML：不选中是褪色，不是灰掉) :contentReference[oaicite:10]{index=10} */
+.pillGhost{
+  opacity: .58;
+  background: rgba(255,255,255,55);
+}
+
+.pillGhost:hover{
+  opacity: .82;
+}
+
+/* 真正没有内容的（disabled）才更淡一点 :contentReference[oaicite:11]{index=11} */
+:global(#stackIndex) :global(button:disabled){
+  opacity: .32;
+  background: rgba(255,255,255,35);
+  cursor: not-allowed;
+}
+/* ✅ 高亮：严格按 HTML，aria-pressed=true 就黄底 */
+:global(#stackIndex) :global(button[aria-pressed="true"]){
+  background: #fde68a !important;     /* 关键：压过 neo.uiPill */
+  opacity: 1 !important;              /* 选中不褪色 */
+}
+
+/* ✅ 可选：让选中态更“明显”（边框更实） */
+:global(#stackIndex) :global(button[aria-pressed="true"]){
+  border-color: var(--ink, #111) !important;
+}
+
+/* ✅ dot 也跟着亮（如果 neo.on 没生效，这里兜底） */
+:global(#stackIndex) :global(button[aria-pressed="true"] .uiDot){
+  background: var(--ink, #111) !important;
+}

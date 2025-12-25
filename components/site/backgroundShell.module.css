@@ -12,7 +12,11 @@
   min-height: 100vh;
   position: relative;
   background: var(--bg-page);
+
+  color: var(--ink);        /* ✅ 强制所有文字回到 ink */
+  isolation: isolate;       /* ✅ 让 mix-blend 不影响内容层 */
 }
+
 
 /* glow + vignette */
 .root::before{
